@@ -1,0 +1,14 @@
+{
+    "name": "hamzahjamad/wordpressslugchecker",
+    "description": "A tool to check slug between blogger and wordpress, just a migration tool",
+    "type": "tool",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hamzahjamad",
+            "email": "hamzahjamad@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
