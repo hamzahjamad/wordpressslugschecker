@@ -26,14 +26,14 @@
                </label>
                   
                 <p class="control">
-                  <input class="input" name="blogger_id" type="text" placeholder="Your Blogger ID">
+                  <input class="input" name="blogger_id" type="text" value="1746070298135901032" placeholder="Your Blogger ID">
                 </p>
                 
                 <label class="label">
                   Wordpress URL*
                 </label>
                 <p class="control">
-                  <input class="input" name="wordpress_url" type="text" placeholder="Your Wordpress URL">
+                  <input class="input" name="wordpress_url" type="text" value="hundred-pages.dev" placeholder="Your Wordpress URL">
                 </p>
 
                 <label class="label">
