@@ -7,6 +7,7 @@ use HamzahJamad\WordpressSlugChecker\SlugChecker;
 
 class SlugCheckerController extends Controller
 {
+
     public function check(Request $request)
     {
     	$this->validate($request, [
@@ -17,18 +18,21 @@ class SlugCheckerController extends Controller
 	    ]);
 
     	$slugChecker = new SlugChecker($request->blogger_id, $request->wordpress_url, $request->wordpress_token);
-    	$blogger_slugs = $slugChecker->getBloggerSlugs();
-    	$broken_slugs = $slugChecker->getBrokenSlugs();
+    	return $slugChecker->getBloggerSlugs();
+    }
 
-    	$processed_slugs = [];
 
+    public function brokenSlug(Request $request)
+    {
+    	$slugChecker = new SlugChecker($request->blogger_id, $request->wordpress_url, $request->wordpress_token);
+    	return $slugChecker->getBrokenSlugs(); 
+    }
+
+    public function fixSlug(Request $request)
+    {
+    	$slugChecker = new SlugChecker($request->blogger_id, $request->wordpress_url, $request->wordpress_token);
     	if ($request->wordpress_fix) {
-    		$processed_slugs = $slugChecker->run();
+    		return $slugChecker->run(); 
     	}
-
-    	return redirect('slugchecker')
-    				->with('slugs', $blogger_slugs)
-    				->with('broken_slugs' , $broken_slugs)
-    				->with('processed_slugs' , $processed_slugs);
     }
 }

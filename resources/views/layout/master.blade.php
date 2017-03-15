@@ -29,7 +29,7 @@
     </section>
 </a>
       <section class="section">
-        <div class="container">
+        <div id="root" class="container">
           @yield('content')
         </div>
       </section>
@@ -51,5 +51,8 @@
         </div>
       </footer>
 
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="https://unpkg.com/vue"></script>
+      <script src="js/app.js"></script>
     </body>
 </html>

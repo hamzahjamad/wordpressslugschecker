@@ -1,61 +1,47 @@
-@extends('layout.master')
-@section('content')
+
 <nav class="level is-mobile">
-  <div class="level-item has-text-centered">
+
+  <div v-if="blogger.any()" class="level-item has-text-centered">
     <div>
       <p class="heading">Total Available Slugs</p>
         <p class="title">
-        @if (session('slugs'))
-              {{ count(session('slugs')) }}
-           @else
-             0
-        @endif
+          @{{ blogger.getSlug().length }}
       </p>
     </div>
   </div>
-  <div class="level-item has-text-centered">
+
+  <div v-if="wordpress.any()" class="level-item has-text-centered">
     <div>
       <p class="heading">Total Slugs Not Matched</p>
         <p class="title">
-        @if (session('broken_slugs'))
-              {{ count(session('broken_slugs')) }}
-           @else
-             0
-        @endif
+          @{{ wordpress.getSlug().length }}
       </p>
     </div>
   </div>
 
-@if (session('processed_slugs'))
-  <div class="level-item has-text-centered">
+ <div v-if="fixed.any()" class="level-item has-text-centered">
     <div>
       <p class="heading">Total Slugs Fixed</p>
         <p class="title">
-       @if (session('processed_slugs')['fixed'])
-          {{ count(session('processed_slugs')['fixed']) }}
-       @else
-          0
-      @endif
+          @{{ fixed.getSlug('fixed').length }}
       </p>
     </div>
   </div>
 
-  <div class="level-item has-text-centered">
+  <div v-if="fixed.any()" class="level-item has-text-centered">
     <div>
       <p class="heading">Total Slugs Cant Be Fixed</p>
         <p class="title">
-       @if (session('processed_slugs')['not_fixed'])
-          {{ count(session('processed_slugs')['not_fixed']) }}
-         @else
-          0
-      @endif
+        @{{ fixed.getSlug('not_fixed').length }}
       </p>
     </div>
   </div>
-@endif
 
 </nav>
 
+
+
+<div v-if="wordpress.any()">
 <hr>
 <div class="notification">
   <h3>Total Slugs Not Matched</h3>
@@ -63,16 +49,14 @@
 <div class="content">
 <p>
   <ol>
-    @if (session('broken_slugs'))
-            @foreach (session('broken_slugs') as $broken_slug)
-              <li>{{$broken_slug}}</li>
-            @endforeach
-    @endif
+      <li v-for="wordpress in wordpress.getSlug()" v-text="wordpress"></li>
   </ol>
 </p>
 </div>
+</div>
 
-@if (session('processed_slugs'))
+<div v-if="fixed.any()">
+
 <hr>
 <div class="notification">
   <h3>Total Slugs Fixed</h3>
@@ -80,11 +64,7 @@
 <div class="content">
 <p>
   <ol>
-    @if (session('processed_slugs')['fixed'])
-            @foreach (session('processed_slugs')['fixed'] as $slug_fixed)
-              <li>{{$slug_fixed}}</li>
-            @endforeach
-    @endif
+     <li v-for="slug_fixed in fixed.getSlug('fixed')" v-text="slug_fixed"></li>
   </ol>
 </p>
 </div>
@@ -97,15 +77,11 @@
 <div class="content">
 <p>
   <ol>
-    @if (session('processed_slugs')['not_fixed'])
-            @foreach (session('processed_slugs')['not_fixed'] as $slug_not_fixed)
-              <li>{{$slug_not_fixed}}</li>
-            @endforeach
-    @endif
+    <li v-for="slug_not_fixed in fixed.getSlug('not_fixed')" v-text="slug_not_fixed"></li>
   </ol>
 </p>
 </div>
-@endif
+
+</div>
 
 
-@endsection
