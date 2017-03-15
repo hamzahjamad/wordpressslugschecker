@@ -19,4 +19,6 @@ Route::get('slugchecker', function () {
     return view('result');
 });
 
-Route::post('slugchecker', 'SlugCheckerController@check');
+Route::post('slugchecker/blogger', 'SlugCheckerController@check');
+Route::post('slugchecker/wordpress/broken', 'SlugCheckerController@brokenSlug');
+Route::post('slugchecker/fix', 'SlugCheckerController@fixSlug');
